@@ -34,7 +34,7 @@ void Solution(double coef_a, double coef_b, int coef_c);
 int Comp_With_Zero(double double_arg);
 
 
-double Solve_Line_Eq(double coef_a, double coef_b);
+void Solve_Line_Eq(double coef_a, double coef_b);
 
 
 int main()
@@ -194,7 +194,7 @@ int Comp_With_Zero(double double_arg)
 
 //-----------------------------------------------------------------------------
 
-double Solve_Line_Eq(double coef_a, double coef_b)
+void Solve_Line_Eq(double coef_a, double coef_b)
 {
     return printf("x = %lg", -coef_b/coef_a);
 }
