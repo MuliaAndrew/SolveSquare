@@ -5,24 +5,37 @@
 
 //-----------------------------------------------------------------------------
 
-#define ONE_ROOT       1
-#define TWO_ROOTS      2
-#define NO_ROOTS       0
-#define INF_ROOTS     -1
+enum CompWithZero
+{
+    LESS = -1,
+    EQUALS,
+    MORE
+};
+
+enum NumOfRoots
+{
+    INF = -1,
+    NO,
+    ONE,
+    TWO
+};
 
 //-----------------------------------------------------------------------------
 
 int Num_Of_Roots(double coef_a, double coef_b, double coef_c);
 
-//-----------------------------------------------------------------------------
 
 void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c);
 
-//-----------------------------------------------------------------------------
 
 void Solution(double coef_a, double coef_b, int coef_c);
 
-//-----------------------------------------------------------------------------
+
+int Comp_With_Zero(double double_arg);
+
+
+double Solve_Line_Eq(double coef_a, double coef_b);
+
 
 int main()
 {
@@ -33,7 +46,7 @@ int main()
     double coef_b  = 0;
     double coef_c  = 0;
 
-    printf("Введите аргументы a, b, c через пробел\n");
+    printf("Р’РІРµРґРёС‚Рµ Р°СЂРіСѓРјРµРЅС‚С‹ a, b, c С‡РµСЂРµР· РїСЂРѕР±РµР»\n");
     scanf("%lg %lg %lg", &coef_a, &coef_b, &coef_c);
 
     Solution(coef_a, coef_b, coef_c);
@@ -49,27 +62,25 @@ void Solution(double coef_a, double coef_b, int coef_c)
 
     switch (num_roots)
     {
-        case TWO_ROOTS:
+        case NumOfRoots(TWO):
         {
             Solve_Two_Roots_Case(coef_a, coef_b, coef_c);
 
             break;
         }
-        case ONE_ROOT:
+        case NumOfRoots(ONE):
         {
-            double x = -coef_b/coef_c;
-
-            printf("x = %lg", x);
+            Solve_Line_Eq(coef_b, coef_c);
 
             break;
         }
-        case NO_ROOTS:
+        case NumOfRoots(NO):
         {
             printf("No solutions");
 
             break;
         }
-        case INF_ROOTS:
+        case NumOfRoots(INF):
         {
             printf("Any number");
 
@@ -84,8 +95,33 @@ void Solution(double coef_a, double coef_b, int coef_c)
 void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c)
 {
     double discriminant = (coef_b*coef_b) - (4*coef_a*coef_c);
+    int compare = Comp_With_Zero(discriminant);
 
-    if (discriminant > 0)
+    switch(compare)
+    {
+        case CompWithZero(MORE):
+        {
+            double x1 = (-coef_b + sqrt(discriminant))/(2*coef_a);
+            double x2 = (-coef_b - sqrt(discriminant))/(2*coef_a);
+
+            printf("x1 = %lg, x2 = %lg",x1 ,x2);
+            break;
+        }
+        case CompWithZero(EQUALS):
+        {
+            double x = -coef_b/(2*coef_a);
+
+            printf("x = %lg", x);
+            break;
+        }
+        case CompWithZero(LESS):
+        {
+            printf("No solutions");
+            break;
+        }
+    }
+}
+/*    if (Comp_With_Zero(discriminant))
     {
         double x1 = (-coef_b + sqrt(discriminant))/(2*coef_a);
         double x2 = (-coef_b - sqrt(discriminant))/(2*coef_a);
@@ -94,7 +130,7 @@ void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c)
     }
     else
     {
-        if (discriminant == 0)
+        if (Comp_With_Zero(discriminant))
         {
             double x = -coef_b/(2*coef_a);
 
@@ -104,46 +140,67 @@ void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c)
         {
             printf("No solution");
         }
-    }
-}
+    } */
 
 //-----------------------------------------------------------------------------
 
 int Num_Of_Roots(double coef_a, double coef_b, double coef_c)
 {
-    if (coef_a == 0)
+    if (Comp_With_Zero(coef_a) == 0)
     {
-        if (coef_b == 0)
+        if (Comp_With_Zero(coef_b) == 0)
         {
-            if (coef_c == 0)
+            if (Comp_With_Zero(coef_c) == 0)
             {
-                return INF_ROOTS;
+                return NumOfRoots(INF);
             }
             else
             {
-                return NO_ROOTS;
+                return NumOfRoots(NO);
             }
         }
         else
         {
-            return ONE_ROOT;
+            return NumOfRoots(ONE);
         }
     }
     else
     {
-        return TWO_ROOTS;
+        return NumOfRoots(TWO);
     }
 }
-/*! TODO
-1)  Doxygen -- докуметация
-2)  Определение функции от объявления
-3)  Параметры функции назвать нормально
-5)  str 59, 60 -- переименовать переменные
-6)  str 32     -- пробелы
-7)  Что будет если 000
-8)  str 38, 42 -- очко с пробелами
-9)  str 63     -- убрал хуйню, переделывай
-10) github     -- код
-11) хуйня с double
-12) разделение на файлы
-*/
+
+//-----------------------------------------------------------------------------
+
+int Comp_With_Zero(double double_arg)
+{
+    double const border_num = 10e-5;
+    if (double_arg > border_num)
+    {
+        return CompWithZero(MORE);
+    }
+    else
+    {
+        if (double_arg < border_num)
+        {
+            return CompWithZero(LESS);
+        }
+        else
+        {
+            return CompWithZero(EQUALS);
+        }
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+double Solve_Line_Eq(double coef_a, double coef_b)
+{
+    return printf("x = %lg", -coef_b/coef_a);
+}
+
+
+
+
+
+
