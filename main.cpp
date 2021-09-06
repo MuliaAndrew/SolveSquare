@@ -5,7 +5,7 @@
 
 //-----------------------------------------------------------------------------
 
-enum CompWithZero
+enum CompWithZeroResults
 {
     LESS = -1,
     EQUALS,
@@ -28,10 +28,10 @@ NumOfRoots Num_Of_Roots(double coef_a, double coef_b, double coef_c);
 void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c);
 
 
-void Solution(double coef_a, double coef_b, int coef_c);
+void Solution(double coef_a, double coef_b, double coef_c);
 
 
-int Comp_With_Zero(double double_arg);
+CompWithZeroResults Comp_With_Zero(double double_arg);
 
 
 void Solve_Line_Eq(double coef_a, double coef_b);
@@ -57,7 +57,7 @@ int main()
 
 //-----------------------------------------------------------------------------
 
-void Solution(double coef_a, double coef_b, int coef_c)
+void Solution(double coef_a, double coef_b, double coef_c)
 {
     int num_roots = Num_Of_Roots(coef_a, coef_b, coef_c);
 
@@ -100,7 +100,7 @@ void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c)
 
     switch(compare)
     {
-        case CompWithZero(MORE):
+        case CompWithZeroResults(MORE):
         {
             double x1 = (-coef_b + sqrt(discriminant))/(2*coef_a);
             double x2 = (-coef_b - sqrt(discriminant))/(2*coef_a);
@@ -108,18 +108,19 @@ void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c)
             printf("x1 = %lg, x2 = %lg",x1 ,x2);
             break;
         }
-        case CompWithZero(EQUALS):
+        case CompWithZeroResults(EQUALS):
         {
             double x = -coef_b/(2*coef_a);
 
             printf("x = %lg", x);
             break;
         }
-        case CompWithZero(LESS):
+        case CompWithZeroResults(LESS):
         {
             printf("No solutions");
             break;
         }
+        default: printf("DEFAULT");
     }
 }
 /*    if (Comp_With_Zero(discriminant))
@@ -171,22 +172,22 @@ NumOfRoots Num_Of_Roots(double coef_a, double coef_b, double coef_c)
 
 //-----------------------------------------------------------------------------
 
-int Comp_With_Zero(double double_arg)
+CompWithZeroResults Comp_With_Zero(double double_arg)
 {
     const double border_num = 10e-5;
     if (double_arg > border_num)
     {
-        return CompWithZero(MORE);
+        return CompWithZeroResults(MORE);
     }
     else
     {
         if (double_arg < -border_num)
         {
-            return CompWithZero(LESS);
+            return CompWithZeroResults(LESS);
         }
         else
         {
-            return CompWithZero(EQUALS);
+            return CompWithZeroResults(EQUALS);
         }
     }
 }
