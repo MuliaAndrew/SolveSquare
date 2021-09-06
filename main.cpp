@@ -181,7 +181,7 @@ int Comp_With_Zero(double double_arg)
     }
     else
     {
-        if (double_arg < border_num)
+        if (double_arg < -border_num)
         {
             return CompWithZero(LESS);
         }
