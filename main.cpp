@@ -22,7 +22,7 @@ enum NumOfRoots
 
 //-----------------------------------------------------------------------------
 
-int Num_Of_Roots(double coef_a, double coef_b, double coef_c);
+NumOfRoots Num_Of_Roots(double coef_a, double coef_b, double coef_c);
 
 
 void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c);
@@ -48,6 +48,7 @@ int main()
 
     printf("Введите аргументы a, b, c через пробел\n");
     scanf("%lg %lg %lg", &coef_a, &coef_b, &coef_c);
+    printf("a = %lg, b = %lg, c = %lg\n", coef_a, coef_b, coef_c);
 
     Solution(coef_a, coef_b, coef_c);
 
@@ -125,7 +126,6 @@ void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c)
     {
         double x1 = (-coef_b + sqrt(discriminant))/(2*coef_a);
         double x2 = (-coef_b - sqrt(discriminant))/(2*coef_a);
-
         printf("x1 = %lg, x2 = %lg",x1 ,x2);
     }
     else
@@ -133,7 +133,6 @@ void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c)
         if (Comp_With_Zero(discriminant))
         {
             double x = -coef_b/(2*coef_a);
-
             printf("x = %lg", x);
         }
         else
@@ -144,7 +143,7 @@ void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c)
 
 //-----------------------------------------------------------------------------
 
-int Num_Of_Roots(double coef_a, double coef_b, double coef_c)
+NumOfRoots Num_Of_Roots(double coef_a, double coef_b, double coef_c)
 {
     if (Comp_With_Zero(coef_a) == 0)
     {
@@ -198,9 +197,3 @@ void Solve_Line_Eq(double coef_a, double coef_b)
 {
     printf("x = %lg", -coef_b/coef_a);
 }
-
-
-
-
-
-
