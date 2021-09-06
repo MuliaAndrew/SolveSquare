@@ -196,7 +196,7 @@ int Comp_With_Zero(double double_arg)
 
 void Solve_Line_Eq(double coef_a, double coef_b)
 {
-    return printf("x = %lg", -coef_b/coef_a);
+    printf("x = %lg", -coef_b/coef_a);
 }
 
 
