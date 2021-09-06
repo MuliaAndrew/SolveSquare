@@ -174,7 +174,7 @@ int Num_Of_Roots(double coef_a, double coef_b, double coef_c)
 
 int Comp_With_Zero(double double_arg)
 {
-    double const border_num = 10e-5;
+    const double border_num = 10e-5;
     if (double_arg > border_num)
     {
         return CompWithZero(MORE);
