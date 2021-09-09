@@ -5,7 +5,9 @@
 
 //-----------------------------------------------------------------------------
 
-enum CompWithZeroResults
+#define ZERO 0
+
+enum CompareRes
 {
     LESS = -1,
     EQUALS,
@@ -22,7 +24,7 @@ enum NumOfRoots
 
 //-----------------------------------------------------------------------------
 
-NumOfRoots Num_Of_Roots(double coef_a, double coef_b, double coef_c);
+int Num_Of_Roots(double coef_a, double coef_b, double coef_c);
 
 
 void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c);
@@ -31,10 +33,10 @@ void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c);
 void Solution(double coef_a, double coef_b, double coef_c);
 
 
-CompWithZeroResults Comp_With_Zero(double double_arg);
+int Comparing_Doubles(double double_arg1, double double_arg2);
 
 
-void Solve_Line_Eq(double coef_a, double coef_b);
+double Solve_Line_Eq(double double_1, double double_2);
 
 
 int main()
@@ -71,7 +73,7 @@ void Solution(double coef_a, double coef_b, double coef_c)
         }
         case NumOfRoots(ONE):
         {
-            Solve_Line_Eq(coef_b, coef_c);
+            printf("x = %lg", Solve_Line_Eq(coef_b, coef_c));
 
             break;
         }
@@ -96,11 +98,11 @@ void Solution(double coef_a, double coef_b, double coef_c)
 void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c)
 {
     double discriminant = (coef_b*coef_b) - (4*coef_a*coef_c);
-    int compare = Comp_With_Zero(discriminant);
+    int compare = Comparing_Doubles(discriminant, ZERO);
 
     switch(compare)
     {
-        case CompWithZeroResults(MORE):
+        case CompareRes(MORE):
         {
             double x1 = (-coef_b + sqrt(discriminant))/(2*coef_a);
             double x2 = (-coef_b - sqrt(discriminant))/(2*coef_a);
@@ -108,14 +110,14 @@ void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c)
             printf("x1 = %lg, x2 = %lg",x1 ,x2);
             break;
         }
-        case CompWithZeroResults(EQUALS):
+        case CompareRes(EQUALS):
         {
             double x = -coef_b/(2*coef_a);
 
             printf("x = %lg", x);
             break;
         }
-        case CompWithZeroResults(LESS):
+        case CompareRes(LESS):
         {
             printf("No solutions");
             break;
@@ -123,34 +125,16 @@ void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c)
         default: printf("DEFAULT");
     }
 }
-/*    if (Comp_With_Zero(discriminant))
-    {
-        double x1 = (-coef_b + sqrt(discriminant))/(2*coef_a);
-        double x2 = (-coef_b - sqrt(discriminant))/(2*coef_a);
-        printf("x1 = %lg, x2 = %lg",x1 ,x2);
-    }
-    else
-    {
-        if (Comp_With_Zero(discriminant))
-        {
-            double x = -coef_b/(2*coef_a);
-            printf("x = %lg", x);
-        }
-        else
-        {
-            printf("No solution");
-        }
-    } */
 
 //-----------------------------------------------------------------------------
 
-NumOfRoots Num_Of_Roots(double coef_a, double coef_b, double coef_c)
+int Num_Of_Roots(double coef_a, double coef_b, double coef_c)
 {
-    if (Comp_With_Zero(coef_a) == 0)
+    if (Comparing_Doubles(coef_a, ZERO) == 0)
     {
-        if (Comp_With_Zero(coef_b) == 0)
+        if (Comparing_Doubles(coef_b, ZERO) == 0)
         {
-            if (Comp_With_Zero(coef_c) == 0)
+            if (Comparing_Doubles(coef_c, ZERO) == 0)
             {
                 return NumOfRoots(INF);
             }
@@ -172,29 +156,29 @@ NumOfRoots Num_Of_Roots(double coef_a, double coef_b, double coef_c)
 
 //-----------------------------------------------------------------------------
 
-CompWithZeroResults Comp_With_Zero(double double_arg)
+int Comparing_Doubles(double double_arg1, double double_arg2)
 {
-    const double border_num = 10e-5;
-    if (double_arg > border_num)
+    const double border_number= 1e-5;
+    if (double_arg1 - double_arg2 > border_number)
     {
-        return CompWithZeroResults(MORE);
+        return CompareRes(MORE);
     }
     else
     {
-        if (double_arg < -border_num)
+        if (double_arg1 - double_arg2 < -border_number)
         {
-            return CompWithZeroResults(LESS);
+            return CompareRes(LESS);
         }
         else
         {
-            return CompWithZeroResults(EQUALS);
+            return CompareRes(EQUALS);
         }
     }
 }
 
 //-----------------------------------------------------------------------------
 
-void Solve_Line_Eq(double coef_a, double coef_b)
+double Solve_Line_Eq(double double_1, double double_2)
 {
-    printf("x = %lg", -coef_b/coef_a);
+    return -double_2 / double_1;
 }
