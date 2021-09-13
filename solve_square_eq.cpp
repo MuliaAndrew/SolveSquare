@@ -6,18 +6,19 @@
 
 //-----------------------------------------------------------------------------
 
+//Main function of module: input a, b, c of square eq, *x1 , *x2 - possible solutions; nothing returned
 void Square_Eq_Solutions(double coef_a, double coef_b, double coef_c, double* x1, double* x2)
 {
     assert(x1);
     assert(x2);
-
-    int num_roots = Num_Square_Eq_Roots(coef_a, coef_b, coef_c);
-    switch (num_roots)
-    {
-        case N_Sq_Roots::TWO:
-        {
-            Solve_Two_Roots_Case(coef_a, coef_b, coef_c, x1, x2);
-            printf("x1 = %lg, x2 = %lg", *x1, *x2);
+    
+    int num_roots = Num_Square_Eq_Roots(coef_a, coef_b, coef_c);    // num_roots -- Number of square eq solutions cases.
+    switch (num_roots)                                              // May accept 5 int numbers:
+    {                                                               //   TWO: case with 2 real solutions
+        case N_Sq_Roots::TWO:                                       //   ONE_LINEAR: case of equation, where a = 0 -> linear eqution b*x + c = 0
+        {                                                           //   ONE_SQUARE: case with discriminant = 0
+            Solve_Two_Roots_Case(coef_a, coef_b, coef_c, x1, x2);   //   NO: No real roots
+            printf("x1 = %lg, x2 = %lg", *x1, *x2);                 //   INF: infinite value of roots
 
             break;
         }
@@ -53,6 +54,7 @@ void Square_Eq_Solutions(double coef_a, double coef_b, double coef_c, double* x1
 }
 
 
+// Solving case TWO: input a, b, c of square eq, *x1 , *x2 - possible solutions; nothing returned
 void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c, double* x1, double* x2)
 {
     double discriminant = Solve_Discr(coef_a, coef_b, coef_c);      // func
@@ -64,6 +66,7 @@ void Solve_Two_Roots_Case(double coef_a, double coef_b, double coef_c, double* x
 }
 
 
+// Solving number of roots: input a, b, c of square eq; str 15 - returned number of roots 
 N_Sq_Roots Num_Square_Eq_Roots(double coef_a, double coef_b, double coef_c)
 {
     if (Comparing_Doubles(coef_a, ZERO) == 0)
@@ -108,6 +111,7 @@ N_Sq_Roots Num_Square_Eq_Roots(double coef_a, double coef_b, double coef_c)
 
 //-----------------------------------------------------------------------------
 
+// Cmparing 2 numbers type of double with a given precision: input Number1, Number 2; return MORE, EQUALS, LESS
 Compare_Res Comparing_Doubles(double num1, double num2)
 {
     if (num1 - num2 > BORDER_NUMBER)
@@ -129,6 +133,7 @@ Compare_Res Comparing_Doubles(double num1, double num2)
 
 //-----------------------------------------------------------------------------
 
+//Solving case ONE_LINEAR: input coef_a, coef_b; return -coef_b / coef_a if it is finite, if not return 0
 double Solve_Line_Eq(double coef_a, double coef_b)
 {
     if(isfinite(coef_b / coef_a))
