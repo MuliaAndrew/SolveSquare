@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include "solve_square_eq.h"     // название
+#include "solve_square_eq.h"
 
 //-----------------------------------------------------------------------------
 
@@ -15,9 +14,16 @@ int main()
     double x2 = 0;
 
     printf("solver square equation a*x^2 + b*x + c = 0\n"
-           "enter a, b, c\n");
+           "enter numbers a, b, c\n");
 
-    scanf("%lg %lg %lg", &coef_a, &coef_b, &coef_c);
+    for(bool input_check = false; input_check == false;)
+    {
+        if(scanf("%lg %lg %lg", &coef_a, &coef_b, &coef_c) == 3)
+            input_check = true;
+        else
+            printf("Enter numbers again\n");
+        fflush(stdin);
+    }
 
     printf("a = %lg, b = %lg, c = %lg\n", coef_a, coef_b, coef_c); // %lf
 
