@@ -15,5 +15,3 @@ __Also you can__
     * Also, after successful compiling, you can find an .exe application in directiry YOURPROJECT/bin/debug/YOURPROJECT.exe or YOURPROJECT/bin/realese/YOURPROJECT.exe
 ## launch
 For launching need to open getted __.exe__ file. There an interface with next instruction
-
-    Roma - loh.        @Budda 743 year B.C.
