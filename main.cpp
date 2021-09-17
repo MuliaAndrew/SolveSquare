@@ -25,7 +25,7 @@ int main()
         fflush(stdin);
     }
 
-    printf("a = %lg, b = %lg, c = %lg\n", coef_a, coef_b, coef_c); // %lf
+    printf("a = %lg, b = %lg, c = %lg\n", coef_a, coef_b, coef_c);
 
     Square_Eq_Solutions(coef_a, coef_b, coef_c, &x1, &x2);
 
